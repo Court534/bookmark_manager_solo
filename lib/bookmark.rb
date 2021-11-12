@@ -1,9 +1,9 @@
+require 'pg'
+
 class Bookmark
   def self.all
-    [
-     'http://www.youtube.com',
-     'http://www.bbc.co.uk',
-     'http://www.google.com'
-    ]
+    connection = PG.connect(dbname: 'bookmark_manager_solo')
+    result = connection.exec('select * from bookmarks;')
+    result.map { |bookmark| bookmark['url'] }
   end
 end
